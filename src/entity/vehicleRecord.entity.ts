@@ -36,5 +36,4 @@ export class VehicleRecord {
   @Field(() => Vehicle)
   vehicle?: Vehicle;
 
-
 }

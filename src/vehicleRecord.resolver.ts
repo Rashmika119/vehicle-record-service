@@ -13,10 +13,11 @@ import { VehicleRecordCreateDTO } from './dto/create-vehicleRecord.input';
 import { Vehicle } from './entity/vehicle.entity';
 @Resolver(() => VehicleRecord)
 export class VehicleRecordResolver {
-  constructor(private vehicleRecordService: VehicleRecordService) {}
+  constructor(private vehicleRecordService: VehicleRecordService) { }
 
   @Query(() => [VehicleRecord], { name: 'getAllVehicleRecords' })
   findAll() {
+    console.log("findAll called")
     return this.vehicleRecordService.findAll();
   }
 
@@ -32,13 +33,17 @@ export class VehicleRecordResolver {
   findVehcleByVin(@Args("vin") vin: string) {
     return this.vehicleRecordService.forAllByVin(vin)
   }
+  @Mutation(() => Boolean, { name: 'removeVehicleRecord' })
+  remove(@Args('id') id: string) {
+    return this.vehicleRecordService.remove(id);
+  }
 
   // @Query(()=>VehicleRecord,{name:'findByVin'})
   // findOne(@Args('vin'))
 
   @ResolveField((of) => Vehicle)
   vehicle(@Parent() vehicleRecord: VehicleRecord) {
-    return { __typename: 'Vehicle',vin: vehicleRecord.vin };
+    return { __typename: 'Vehicle', vin: vehicleRecord.vin };
   }
 
 }

@@ -9,8 +9,8 @@ export class VehicleResolver {
 
     @ResolveField((of) => [VehicleRecord])
     vehicleRecords(@Parent() vehicle: Vehicle): Promise<VehicleRecord[]> {
+        console.log("enter to resolve field vehicle resover in record service")
         return this.vehicleRecordService.forAllByVin(vehicle.vin)
     }
-
 
 }
