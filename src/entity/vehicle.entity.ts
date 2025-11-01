@@ -6,7 +6,7 @@ import { VehicleRecord } from "./vehicleRecord.entity";
 @Directive('@key(fields: "vin")')
 export class Vehicle {
 
-    @Field((type) => ID)
+    @Field()
     @Directive('@external')
     vin: string
 

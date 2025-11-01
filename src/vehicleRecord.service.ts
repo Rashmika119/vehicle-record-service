@@ -27,31 +27,29 @@ export class VehicleRecordService {
 
   }
 
-  async forAllByVin(id: string) {
-    return await this.vehicleRecordRepository.find({ where: { vin: id } })
+  async forAllByVin(vin: string) {
+    return await this.vehicleRecordRepository.find({ where: { vin : vin } })
   }
 
-  // async update(id: string, vehicleRecordUpdateDTO: VehicleRecordUpdateDTO): Promise<VehicleRecord> {
-  //   console.log('Updating vehicle:', id, vehicleRecordUpdateDTO);
+async update(id: string, vehicleRecordUpdateDTO: VehicleRecordUpdateDTO): Promise<VehicleRecord> {
+  console.log('Updating vehicle record:', id, vehicleRecordUpdateDTO);
 
-  //   const existingVehicle = await this.vehicleRecordRepository.findBy
+  const existingVehicleRecord = await this.vehicleRecordRepository.findOne({ where: { id } });
 
-  //   if (!existingVehicle) {
-  //     throw new NotFoundException(`Vehicle with id ${id} not found`);
-  //   }
+  if (!existingVehicleRecord) {
+    throw new NotFoundException(`Vehicle record with id ${id} not found`);
+  }
+  const vehicleRecordToUpdate = this.vehicleRecordRepository.merge(
+    existingVehicleRecord,
+    vehicleRecordUpdateDTO 
+  );
 
-  //   const vehicleToUpdate = this.vehicleRepository.merge(existingVehicle, updateVehicleInput);
+  const savedVehicleRecord = await this.vehicleRecordRepository.save(vehicleRecordToUpdate);
+  console.log('Vehicle record updated successfully');
 
-  //   if (updateVehicleInput.manufactured_date) {
-  //     vehicleToUpdate.age_of_the_vehicle = this.calculateAge(updateVehicleInput.manufactured_date);
-  //     console.log('Recalculated age:', vehicleToUpdate.age_of_the_vehicle);
-  //   }
+  return savedVehicleRecord;
+}
 
-  //   const savedVehicle = await this.vehicleRepository.save(vehicleToUpdate);
-  //   console.log('Vehicle updated successfully');
-
-  //   return savedVehicle;
-  // }
 
   async remove(id: string): Promise<boolean> {
     console.log('Deleting vehicle record with id:', id);

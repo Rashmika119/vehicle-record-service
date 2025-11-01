@@ -29,7 +29,7 @@ export class VehicleRecordResolver {
   findOne(@Args("id") id: string) {
     return this.vehicleRecordService.findOne(id)
   }
-  @Query(() => VehicleRecord, { name: "findVehicleRecordByVin" })
+  @Query(() => [VehicleRecord], { name: "findVehicleRecordByVin" })
   findVehcleByVin(@Args("vin") vin: string) {
     return this.vehicleRecordService.forAllByVin(vin)
   }
