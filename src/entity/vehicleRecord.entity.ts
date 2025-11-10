@@ -33,7 +33,7 @@ export class VehicleRecord {
   @Column()
   description: string;
 
-  @Field(() => Vehicle)
-  vehicle?: Vehicle;
+  // @Field(() => Vehicle)
+  // vehicle?: Vehicle;
 
 }
