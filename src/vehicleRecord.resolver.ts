@@ -31,7 +31,7 @@ export class VehicleRecordResolver {
       return records;
     } catch (error) {
       this.logger.error('Failed to fetch all vehicle records', error.stack);
-      return []
+      throw new InternalServerErrorException('Cant fetch the vehicle record details')
     }
   }
 
@@ -44,7 +44,7 @@ export class VehicleRecordResolver {
       return record;
     } catch (error) {
       this.logger.error('Failed to create vehicle record', error.stack);
-      return null
+      throw new InternalServerErrorException('cant create a vehicle')
       
     }
   }
@@ -62,7 +62,7 @@ export class VehicleRecordResolver {
       return record;
     } catch (error) {
       this.logger.error(`Error fetching vehicle record with ID ${id}`, error.stack);
-      return null
+      throw new InternalServerErrorException('cant find a vehicel with yhe id',id)
     }
   }
 
@@ -76,7 +76,7 @@ export class VehicleRecordResolver {
       return records;
     } catch (error) {
       this.logger.error(`Error fetching vehicle records by VIN: ${vin}`, error.stack);
-      return []
+      throw new InternalServerErrorException("can't find a vehicle with vin: ",vin)
     }
   }
 
@@ -90,7 +90,7 @@ export class VehicleRecordResolver {
       return result;
     } catch (error) {
       this.logger.error(`Failed to remove vehicle record with ID ${id}`, error.stack);
-      return false
+      throw new InternalServerErrorException(`can't remove the vehicle record with id:${id} ` )
     }
   }
 
@@ -107,7 +107,7 @@ export class VehicleRecordResolver {
       return updatedRecord;
     } catch (error) {
       this.logger.error(`Failed to update vehicle record with ID ${id}`, error.stack);
-      return null
+      throw new InternalServerErrorException(`Can't update vehicle record with id: ${id}`)
     }
   }
   // @ResolveField((of) => Vehicle)
