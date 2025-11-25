@@ -35,7 +35,7 @@ export class VehicleRecordResolver {
     }
   }
 
-  @Mutation(() => VehicleRecord, { name: 'createVehicleRecord' ,nullable:true})
+  @Mutation(() => VehicleRecord, { name: 'createVehicleRecord'})
   async create(@Args('vehicleRecordInput') vehicleRecord: VehicleRecordCreateDTO):Promise<VehicleRecord|null> {
         this.logger.log('Creating a new vehicle record...');
     try {

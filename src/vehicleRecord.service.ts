@@ -54,10 +54,7 @@ export class VehicleRecordService {
     return records;
   }
 
-  async update(
-    id: string,
-    vehicleRecordUpdateDTO: VehicleRecordUpdateDTO,
-  ): Promise<VehicleRecord> {
+  async update(id: string,vehicleRecordUpdateDTO: VehicleRecordUpdateDTO): Promise<VehicleRecord> {
     this.logger.log(`Updating vehicle record with id: ${id}`);
     const existing = await this.vehicleRecordRepository.findOne({ where: { id } });
 
@@ -97,13 +94,5 @@ export class VehicleRecordService {
     throw new InternalServerErrorException(`Failed to delete vehicle record with id ${id}`);
   }
 
-  //   async search(search:VehicleRecordSearchDTO): Promise<VehicleRecord[]> {
-  //   const query = this.vehicleRecordRepository.createQueryBuilder('vehicle');
-  //   console.log("searched car model:  ", search.vin)
-  //   if (search?.vin) {
-  //     query.where({ vin: `${search.vin}%` });
-  //   }
-  //   return query.getMany()
-  // }
 
 }
